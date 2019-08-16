@@ -31,13 +31,19 @@ while inicio == 'S':
         validacaocpf = str(input('Digite seu CPF:'))
         validacaoconta = str(input('Digite sua conta'))
 
-        if validacaoconta in conta and validacaocpf in cpf:
+        if validacaoconta in contacliente and validacaocpf in cpfcliente:
             print('Bem vindo ao sistema do banco:')
             print('Escolha a operação que deseja realizar no sistema:')
+            operacao = int(input(f'1 - Depósito. 2 - Saque. 3 - Saldo. 4 - Transferência. 5 - Sair '))
+            if operacao == 1:
+              valordeposito = str(input('Digite o valor a ser depositado:'))
+              pos = validacaocpf.index(cpfcliente)
+              saldocliente[pos] += valordeposito
+              print(f'O saldo da conta {contacliente[pos]} agora é de R${saldocliente[pos]}.')
 
-        if validacaoconta not in conta:
+
+
+        if validacaoconta not in contacliente:
             print('Conta não cadastrada.')
-        elif validacaocpf not in cpf:
+        elif validacaocpf not in cpfcliente:
             print('CPF não cadastrado.')
-
-
