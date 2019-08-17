@@ -44,9 +44,9 @@ while inicio == 'S':
                 print(f'O saldo da conta {contacliente[pos]} agora é de R${saldocliente[pos]}.')
 
             if operacao == 2:
-                valorsaque = str(input('Digite o valor a ser sacado:'))
+                valorsaque = int(input('Digite o valor a ser sacado:'))
                 pos = contacliente.index(validacaoconta)
-                if valorsaque > int(saldocliente[pos]):
+                if valorsaque > (saldocliente[pos]):
                     print('Saldo insuficente.')
                 else:
                  saldocliente[pos] -= valorsaque
@@ -58,7 +58,7 @@ while inicio == 'S':
 
             if operacao == 4:
                 contatransferencia = str(input('Digite a conta a ser transferida:'))
-                valortransferencia = str(input('Digite o valor a ser transferido:'))
+                valortransferencia = int(input('Digite o valor a ser transferido:'))
                 pos = contacliente.index(validacaoconta)
                 pos2 = contacliente.index(contatransferencia)
                 if valortransferencia > saldocliente[pos]:
