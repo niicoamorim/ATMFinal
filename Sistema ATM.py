@@ -1,8 +1,9 @@
 nomecliente = []
 cpfcliente = []
-contacliente= []
+contacliente = []
 saldocliente = []
 inicio = 'S'
+pos = int(0)
 tentativalogin = int(3)
 print('=' * 30)
 print('{:^30}'.format('BANCO DO RONEY BOY -  O MELHOR DE MACEIO'))
@@ -15,16 +16,15 @@ while inicio == 'S':
         nome = str(input('Digite seu nome:'))
         cpf = str(input('Digite seu CPF:'))
         conta = str(input('Digite seu número de conta:'))
-        saldo =str(0)
+        saldo =int(0)
         if cpf in cpfcliente:
             print('Impossivel fazer o cadastro:')
             inicio = 'S'
         else:
-         nomecliente.append(nome)
-         cpfcliente.append(cpf)
-         contacliente.append(conta)
-         saldocliente.append(saldo)
-        print(nomecliente,cpfcliente,contacliente,saldocliente)
+            nomecliente.append(nome)
+            cpfcliente.append(cpf)
+            contacliente.append(conta)
+            saldocliente.append(saldo)
 
 
     if verificacaocadastro == 'S':
@@ -38,29 +38,29 @@ while inicio == 'S':
             operacao = int(input(f'1 - Depósito. 2 - Saque. 3 - Saldo. 4 - Transferência. 5 - Sair '))
 
             if operacao == 1:
-                valordeposito = str(input('Digite o valor a ser depositado:'))
-                pos = validacaocpf.index(cpfcliente)
+                valordeposito = int(input('Digite o valor a ser depositado:'))
+                pos = cpfcliente.index(validacaocpf)
                 saldocliente[pos] += valordeposito
                 print(f'O saldo da conta {contacliente[pos]} agora é de R${saldocliente[pos]}.')
 
             if operacao == 2:
-                valorsaque = int(input('Digite o valor a ser sacado:'))
-                pos = validacaoconta.index(contacliente)
-                if valorsaque > saldocliente[pos]:
+                valorsaque = str(input('Digite o valor a ser sacado:'))
+                pos = contacliente.index(validacaoconta)
+                if valorsaque > int(saldocliente[pos]):
                     print('Saldo insuficente.')
                 else:
                  saldocliente[pos] -= valorsaque
                  print(f'O novo saldo da conta {contacliente[pos]} é {saldocliente[pos]}.')
 
             if operacao == 3:
-                pos = validacaoconta.index(contacliente)
+                pos = contacliente.index(validacaoconta)
                 print(f'O saldo atual da conta {contacliente[pos]} é {saldocliente[pos]}')
 
             if operacao == 4:
                 contatransferencia = str(input('Digite a conta a ser transferida:'))
-                valortransferencia = int(input('Digite o valor a ser transferido:'))
-                pos = validacaoconta.index(contacliente)
-                pos2 = contatransferencia.index(contacliente)
+                valortransferencia = str(input('Digite o valor a ser transferido:'))
+                pos = contacliente.index(validacaoconta)
+                pos2 = contacliente.index(contatransferencia)
                 if valortransferencia > saldocliente[pos]:
                     print('Vamor superior ao saldo da conta')
                 if valortransferencia <= saldocliente[pos]:
@@ -77,8 +77,8 @@ while inicio == 'S':
             tentativalogin -= 1
         elif validacaocpf not in cpfcliente:
             print('CPF não cadastrado.')
-
             tentativalogin -= 1
+
         if tentativalogin < 0:
             print('Você está bloqueado.\n Tente daqui há 30 minutos.')
             break
