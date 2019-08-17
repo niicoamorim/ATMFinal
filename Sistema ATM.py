@@ -9,7 +9,7 @@ print('=' * 30)
 print('{:^30}'.format('BANCO DO RONEY BOY -  O MELHOR DE MACEIO'))
 print('=' * 30)
 
-while inicio == 'S':
+while inicio == 'S' and tentativalogin > 0:
     verificacaocadastro = str(input('Você já tem cadastro no Banco?')).upper()
     if verificacaocadastro =='N':
         novocadastro = []
@@ -17,22 +17,27 @@ while inicio == 'S':
         cpf = str(input('Digite seu CPF:'))
         conta = str(input('Digite seu número de conta:'))
         saldo =int(0)
-        if cpf in cpfcliente:
-            print('Impossivel fazer o cadastro:')
+        if cpf in cpfcliente or conta in contacliente:
+            print('Impossivel fazer o cadastro.')
             inicio = 'S'
         else:
             nomecliente.append(nome)
             cpfcliente.append(cpf)
             contacliente.append(conta)
             saldocliente.append(saldo)
+            inicio = 'S'
+            verificacaocadastro = 'S'
 
 
-    if verificacaocadastro == 'S':
+    while verificacaocadastro == 'S' and tentativalogin > 0:
+
+
         print(f'Digite os dados abaixo para realizar login no sistema do banco. Você ainda tem {tentativalogin} tentativas.')
         validacaocpf = str(input('Digite seu CPF:'))
         validacaoconta = str(input('Digite sua conta'))
 
         if validacaoconta in contacliente and validacaocpf in cpfcliente:
+            tentativalogin = 3
             print('Bem vindo ao sistema do banco:')
             print('Escolha a operação que deseja realizar no sistema:')
             operacao = int(input(f'1 - Depósito. 2 - Saque. 3 - Saldo. 4 - Transferência. 5 - Sair '))
@@ -70,15 +75,14 @@ while inicio == 'S':
 
             if operacao ==5:
                 print('Muito obrigado por acessa o sistema.')
-                break
+                verificacaocadastro = 'N'
+                inicio = 'S'
 
-        if validacaoconta not in contacliente:
+        elif validacaoconta not in contacliente:
             print('Conta não cadastrada.')
             tentativalogin -= 1
+
         elif validacaocpf not in cpfcliente:
             print('CPF não cadastrado.')
-            tentativalogin -= 1
-
-        if tentativalogin < 0:
-            print('Você está bloqueado.\n Tente daqui há 30 minutos.')
-            break
+if tentativalogin == 0:
+ print('Você está bloqueado.\n Tente daqui há 30 minutos.')
