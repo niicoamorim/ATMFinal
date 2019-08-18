@@ -52,9 +52,9 @@ while inicio == 'S' and tentativalogin > 0:
 
             while operacao == 1:
                 valordeposito = int(input('Digite o valor a ser depositado:'))
-                pos = int(cadastro.index(validacaocpf))
-                pos2 = pos+3
-                pos2 += valordeposito #print(f'O saldo da conta {cadastro[pos]} agora é de R${cadastro[pos2]}.')
+                posicaocontadepositada = int(cadastro.index(validacaocpf))
+                saldocontadepositada = posicaocontadepositada+2
+                saldocontadepositada += valordeposito #print(f'O saldo da conta {cadastro[pos]} agora é de R${cadastro[pos2]}.')
                 novodeposito = str(input( 'Deseja fazer um novo depósito? S/N ')).upper()
                 if novodeposito == 'N':
                     novaoperacao = 'S'
@@ -62,31 +62,31 @@ while inicio == 'S' and tentativalogin > 0:
 
             if operacao == 2:
                 valorsaque = int(input('Digite o valor a ser sacado:'))
-                pos = cadastro.index(validacaoconta)
-                pos2 = pos+3
-                if valorsaque > (cadastro[pos2]):
+                posicaoconta = cadastro.index(validacaoconta)
+                saldoconta = posicaoconta + 1
+                if valorsaque > (cadastro[saldoconta]):
                     print('Saldo insuficente.')
                 else:
-                 cadastro[pos2] -= valorsaque
-                 print('O novo saldo da conta {} é {}.'.format(cadastro[pos],cadastro[pos2]))
+                 cadastro[saldoconta] -= valorsaque
+                 print('O novo saldo da conta {} é {}.'.format(cadastro[posicaoconta],cadastro[saldoconta]))
 
             if operacao == 3:
-                pos = cadastro.index(validacaoconta)
-                pos2 = pos+3
-                print(f'O saldo atual da conta {cadastro[pos]} é {cadastro[pos2]}')
+                posicaoconta = cadastro.index(validacaoconta)
+                saldoconta = posicaoconta + 2
+                print(f'O saldo atual da conta {cadastro[posicaoconta]} é {cadastro[saldoconta]}')
 
             if operacao == 4:
                 contatransferencia = str(input('Digite a conta a ser transferida:'))
                 valortransferencia = int(input('Digite o valor a ser transferido:'))
-                pos = cadastro.index(validacaoconta)
-                pos2 = pos + 3
-                pos3 = cadastro.index(contatransferencia)
-                pos4 = pos3 + 3
-                if valortransferencia > cadastro[pos2]:
+                posicaocontadepositante = cadastro.index(validacaoconta)
+                saldocontadepositante = posicaocontadepositante + 3
+                posicaocontadepositada = cadastro.index(contatransferencia)
+                saldocontadepositada = posicaocontadepositada + 3
+                if valortransferencia > cadastro[saldocontadepositante]:
                     print('Vamor superior ao saldo da conta')
-                if valortransferencia <= cadastro[pos2]:
-                    cadastro[pos2] -= valortransferencia
-                    cadastro[pos4] += valortransferencia
+                if valortransferencia <= cadastro[saldocontadepositante]:
+                    cadastro[saldocontadepositante] -= valortransferencia
+                    cadastro[saldocontadepositada] += valortransferencia
                     print(f'Foi retirado R${valortransferencia} da conta {cadastro[pos]} e foi transferido para a conta {cadastro[pos3]}')
 
             if operacao == 5:
