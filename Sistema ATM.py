@@ -17,8 +17,7 @@ pontos()
 
 while inicio == 'S' and tentativalogin > 0:
     verificacaocadastro = str(input('Você já tem cadastro no Banco?')).upper()
-    if verificacaocadastro =='N':
-        novocadastro = []
+    while verificacaocadastro =='N':
         nome = str(input('Digite seu nome:'))
         cpf = str(input('Digite seu CPF:'))
         conta = str(input('Digite seu número de conta:'))
@@ -33,6 +32,11 @@ while inicio == 'S' and tentativalogin > 0:
             saldocliente.append(saldo)
             inicio = 'S'
             verificacaocadastro = 'S'
+        novocadastro = str(input('Deseja realizar um novo cadastro?')).upper()
+        if novocadastro == 'S':
+           verificacaocadastro = 'N'
+           inicio = 'S'
+
 
     while verificacaocadastro == 'S' and tentativalogin > 0:
 
@@ -84,7 +88,8 @@ while inicio == 'S' and tentativalogin > 0:
             if operacao == 5:
                 print('AQUI')
                 novaoperacao = 'S'
-                verificacaocadastro = 'S'
+                operacao = ' '
+                verificacaocadastro = 'N'
                 break
 
         if validacaoconta not in contacliente:
