@@ -1,13 +1,19 @@
+def pontos():
+    print('=' * 30)
+
 nomecliente = []
 cpfcliente = []
 contacliente = []
 saldocliente = []
+novodeposito = str('S')
+novaoperacao =  str('S')
 inicio = 'S'
 pos = int(0)
 tentativalogin = int(3)
-print('=' * 30)
-print('{:^30}'.format('BANCO DO RONEY BOY -  O MELHOR DE MACEIO'))
-print('=' * 30)
+
+pontos()
+print('    NICOLAS BANK    ')
+pontos()
 
 while inicio == 'S' and tentativalogin > 0:
     verificacaocadastro = str(input('Você já tem cadastro no Banco?')).upper()
@@ -28,25 +34,27 @@ while inicio == 'S' and tentativalogin > 0:
             inicio = 'S'
             verificacaocadastro = 'S'
 
-
     while verificacaocadastro == 'S' and tentativalogin > 0:
-
 
         print(f'Digite os dados abaixo para realizar login no sistema do banco. Você ainda tem {tentativalogin} tentativas.')
         validacaocpf = str(input('Digite seu CPF:'))
         validacaoconta = str(input('Digite sua conta'))
 
-        if validacaoconta in contacliente and validacaocpf in cpfcliente:
+        while validacaoconta in contacliente and validacaocpf in cpfcliente and novaoperacao == 'S':
             tentativalogin = 3
             print('Bem vindo ao sistema do banco:')
             print('Escolha a operação que deseja realizar no sistema:')
-            operacao = int(input(f'1 - Depósito. 2 - Saque. 3 - Saldo. 4 - Transferência. 5 - Sair '))
+            operacao = int(input(f'1 - Depósito. \n2 - Saque. \n3 - Saldo. \n4 - Transferência. \n5 - Sair '))
 
-            if operacao == 1:
+            while operacao == 1:
                 valordeposito = int(input('Digite o valor a ser depositado:'))
                 pos = cpfcliente.index(validacaocpf)
                 saldocliente[pos] += valordeposito
                 print(f'O saldo da conta {contacliente[pos]} agora é de R${saldocliente[pos]}.')
+                novodeposito = str(input( 'Deseja fazer um novo depósito? S/N ')).upper()
+                if novodeposito == 'N':
+                    novaoperacao = 'S'
+                    operacao = ' '
 
             if operacao == 2:
                 valorsaque = int(input('Digite o valor a ser sacado:'))
@@ -73,14 +81,15 @@ while inicio == 'S' and tentativalogin > 0:
                     saldocliente[pos2] += valortransferencia
                     print(f'Foi retirado R${valortransferencia} da conta {contacliente[pos]} e foi transferido para a conta {contacliente[pos2]}')
 
-            if operacao ==5:
-                print('Muito obrigado por acessa o sistema.')
-                verificacaocadastro = 'N'
-                inicio = 'S'
+            if operacao == 5:
+                print('AQUI')
+                novaoperacao = 'S'
+                verificacaocadastro = 'S'
+                break
 
-        elif validacaoconta not in contacliente:
-            print('Conta não cadastrada.')
-            tentativalogin -= 1
+        if validacaoconta not in contacliente:
+          print('Conta não cadastrada.')
+          tentativalogin -= 1
 
         elif validacaocpf not in cpfcliente:
             print('CPF não cadastrado.')
