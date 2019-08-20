@@ -6,11 +6,8 @@ cadastro= []
 novodeposito = str('S')
 novaoperacao =  str('S')
 inicio = 'S'
-pos = int(0)
-pos2 = int(0)
-pos3 = int(0)
-pos4 = int(0)
 tentativalogin = int(3)
+conta = int(0)
 pontos()
 print('    NICOLAS BANK    ')
 pontos()
@@ -21,16 +18,17 @@ while inicio == 'S' and tentativalogin > 0:
     while verificacaocadastro =='N':
         nome = str(input('Digite seu nome:'))
         cpf = str(input('Digite seu CPF:'))
-        conta = str(input('Digite seu número de conta:'))
-        saldo =int(0)
-        if cpf in cadastro or conta in cadastro:
-            print('Impossivel fazer o cadastro.')
+        if cpf in cadastro:
+            print('CPF já cadastrado.')
             inicio = 'S'
         else:
+            conta += + 1
+            saldo = int(0)
             cadastro.append(nome)
             cadastro.append(cpf)
             cadastro.append(conta)
             cadastro.append(saldo)
+            print('Sua conta é:',conta)
             inicio = 'S'
             verificacaocadastro = 'S'
         novocadastro = str(input('Deseja realizar um novo cadastro?')).upper()
@@ -42,24 +40,24 @@ while inicio == 'S' and tentativalogin > 0:
 
         print(f'Digite os dados abaixo para realizar login no sistema do banco. Você ainda tem {tentativalogin} tentativas.')
         validacaocpf = str(input('Digite seu CPF:'))
-        validacaoconta = str(input('Digite sua conta'))
+        validacaoconta = int(input('Digite sua conta:'))
 
         while validacaoconta in cadastro and validacaocpf in cadastro and novaoperacao == 'S':
             tentativalogin = 3
             print('Bem vindo ao sistema do banco:')
             print('Escolha a operação que deseja realizar no sistema:')
-            operacao = int(input(f'1 - Depósito. \n2 - Saque. \n3 - Saldo. \n4 - Transferência. \n5 - Sair '))
+            operacao = int(input(f'1 - Depósito. \n2 - Saque. \n3 - Saldo. \n4 - Transferência. \n5 - Voltar Início '))
 
             while operacao == 1:
                 valordeposito = int(input('Digite o valor a ser depositado:'))
-                posicaocontadepositada = int(cadastro.index(validacaocpf))
-                saldocontadepositada = posicaocontadepositada+2
-                cadastro[saldocontadepositada] += int(valordeposito) #print(f'O saldo da conta {cadastro[pos]} agora é de R${cadastro[pos2]}.')
+                posicaocontadepositada = cadastro.index(validacaocpf)
+                saldocontadepositada = posicaocontadepositada + 2
+                cadastro[saldocontadepositada] += valordeposito #print(f'O saldo da conta {cadastro[pos]} agora é de R${cadastro[pos2]}.')
                 print(cadastro)
                 novodeposito = str(input( 'Deseja fazer um novo depósito? S/N ')).upper()
                 if novodeposito == 'N':
                     novaoperacao = 'S'
-                    operacao = ' '
+                    operacao = '0'
 
             if operacao == 2:
                 valorsaque = int(input('Digite o valor a ser sacado:'))
@@ -74,14 +72,14 @@ while inicio == 'S' and tentativalogin > 0:
 
             if operacao == 3:
                 posicaoconta = cadastro.index(validacaoconta)
-                saldo = posicaoconta + 2
+                saldo = posicaoconta + 1
                 print('O saldo atual da conta é ',cadastro[saldo])
 
             if operacao == 4:
                 contatransferencia = str(input('Digite a conta a ser transferida:'))
                 valortransferencia = int(input('Digite o valor a ser transferido:'))
                 posicaocontadepositante = cadastro.index(validacaoconta)
-                saldocontadepositante = posicaocontadepositante + 2
+                saldocontadepositante = posicaocontadepositante + 1
                 posicaocontadepositada = cadastro.index(contatransferencia)
                 saldocontadepositada = posicaocontadepositada + 2
                 if valortransferencia > cadastro[saldocontadepositante]:
